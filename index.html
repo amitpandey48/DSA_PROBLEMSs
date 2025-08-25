@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Problem Solver | Interactive Algorithm Visualization</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>DSA Solver</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search problems..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="header-controls">
+                <button id="toggleTheme" class="control-btn" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="progressToggle" class="control-btn" title="Progress Tracker">
+                    <i class="fas fa-chart-line"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>Data Structures</h3>
+                <button id="sidebarToggle" class="sidebar-toggle">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <nav class="category-nav">
+                <div class="category-item active" data-category="all">
+                    <i class="fas fa-layer-group"></i>
+                    <span>All Problems</span>
+                    <span class="count" id="allCount">0</span>
+                </div>
+                <div class="category-item" data-category="array">
+                    <i class="fas fa-th-list"></i>
+                    <span>Arrays</span>
+                    <span class="count" id="arrayCount">0</span>
+                </div>
+                <div class="category-item" data-category="linkedlist">
+                    <i class="fas fa-link"></i>
+                    <span>Linked Lists</span>
+                    <span class="count" id="linkedlistCount">0</span>
+                </div>
+                <div class="category-item" data-category="stack">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Stacks</span>
+                    <span class="count" id="stackCount">0</span>
+                </div>
+                <div class="category-item" data-category="queue">
+                    <i class="fas fa-stream"></i>
+                    <span>Queues</span>
+                    <span class="count" id="queueCount">0</span>
+                </div>
+                <div class="category-item" data-category="tree">
+                    <i class="fas fa-sitemap"></i>
+                    <span>Trees</span>
+                    <span class="count" id="treeCount">0</span>
+                </div>
+                <div class="category-item" data-category="graph">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Graphs</span>
+                    <span class="count" id="graphCount">0</span>
+                </div>
+                <div class="category-item" data-category="hashing">
+                    <i class="fas fa-hashtag"></i>
+                    <span>Hashing</span>
+                    <span class="count" id="hashingCount">0</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Problems List View -->
+            <section id="problemsList" class="content-section active">
+                <div class="section-header">
+                    <h2 id="sectionTitle">All Problems</h2>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="problemsGrid" class="problems-grid">
+                    <!-- Problems will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Problem Detail View -->
+            <section id="problemDetail" class="content-section">
+                <div class="problem-header">
+                    <button id="backBtn" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Problems
+                    </button>
+                    <div class="problem-controls">
+                        <button id="copyCode" class="control-btn" title="Copy Code">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <div class="language-toggle">
+                            <button class="lang-btn active" data-lang="cpp">C++</button>
+                            <button class="lang-btn" data-lang="java">Java</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem-content">
+                    <!-- Problem Description -->
+                    <div class="problem-description">
+                        <h1 id="problemTitle"></h1>
+                        <div class="problem-meta">
+                            <span class="difficulty" id="problemDifficulty"></span>
+                            <span class="category" id="problemCategory"></span>
+                        </div>
+                        <div id="problemStatement" class="statement"></div>
+                        <div id="problemConstraints" class="constraints"></div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="solution">Solution</button>
+                        <button class="tab-btn" data-tab="explanation">Explanation</button>
+                        <button class="tab-btn" data-tab="visualization">Dry Run</button>
+                        <button class="tab-btn" data-tab="datastructure">Data Structure</button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- Solution Tab -->
+                        <div id="solutionTab" class="tab-panel active">
+                            <div class="code-container">
+                                <div class="code-header">
+                                    <span class="code-title">Solution Code</span>
+                                    <div class="code-controls">
+                                        <button id="resetCode" class="control-btn" title="Reset">
+                                            <i class="fas fa-redo"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <pre id="solutionCode" class="code-block"></pre>
+                            </div>
+                        </div>
+
+                        <!-- Explanation Tab -->
+                        <div id="explanationTab" class="tab-panel">
+                            <div class="explanation-content">
+                                <div id="algorithmExplanation" class="algorithm-explanation"></div>
+                                <div id="timeComplexity" class="complexity-info"></div>
+                                <div id="spaceComplexity" class="complexity-info"></div>
+                            </div>
+                        </div>
+
+                        <!-- Visualization Tab -->
+                        <div id="visualizationTab" class="tab-panel">
+                            <div class="visualization-container">
+                                <div class="animation-controls">
+                                    <button id="playAnimation" class="anim-btn play-btn">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button id="pauseAnimation" class="anim-btn pause-btn">
+                                        <i class="fas fa-pause"></i>
+                                    </button>
+                                    <button id="resetAnimation" class="anim-btn reset-btn">
+                                        <i class="fas fa-redo"></i>
+                                    </button>
+                                    <div class="speed-control">
+                                        <label>Speed:</label>
+                                        <input type="range" id="speedSlider" min="0.5" max="3" step="0.5" value="1">
+                                        <span id="speedValue">1x</span>
+                                    </div>
+                                </div>
+                                <div id="animationCanvas" class="animation-canvas"></div>
+                                <div id="variableTracker" class="variable-tracker"></div>
+                            </div>
+                        </div>
+
+                        <!-- Data Structure Tab -->
+                        <div id="datastructureTab" class="tab-panel">
+                            <div class="ds-explanation">
+                                <div id="dsDescription" class="ds-description"></div>
+                                <div id="dsVisualization" class="ds-visualization"></div>
+                                <div id="dsOperations" class="ds-operations"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Progress Modal -->
+    <div id="progressModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Progress Tracker</h3>
+                <button id="closeProgress" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="solvedCount">0</div>
+                    <div class="stat-label">Solved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="progressPercent">0%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+            </div>
+            <div id="progressChart" class="progress-chart"></div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/syntaxHighlighter.js"></script>
+    <script src="scripts/animationEngine.js"></script>
+    <script src="scripts/problemManager.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

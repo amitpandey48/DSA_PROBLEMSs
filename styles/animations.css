@@ -1,0 +1,722 @@
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(0, 255, 136, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+    }
+}
+
+@keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 5px var(--accent-primary);
+    }
+    50% {
+        text-shadow: 0 0 20px var(--accent-primary), 0 0 30px var(--accent-primary);
+    }
+    100% {
+        text-shadow: 0 0 5px var(--accent-primary);
+    }
+}
+
+@keyframes borderGlow {
+    0% {
+        border-color: var(--border-color);
+        box-shadow: none;
+    }
+    50% {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    }
+    100% {
+        border-color: var(--border-color);
+        box-shadow: none;
+    }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+.slide-in-down {
+    animation: slideInDown 0.5s ease forwards;
+}
+
+.slide-in-up {
+    animation: slideInUp 0.5s ease forwards;
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease forwards;
+}
+
+.scale-out {
+    animation: scaleOut 0.3s ease forwards;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.neon-glow {
+    animation: neonGlow 2s ease-in-out infinite;
+}
+
+.border-glow {
+    animation: borderGlow 2s ease-in-out infinite;
+}
+
+/* Algorithm Animation Elements */
+.array-element {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.array-element.current {
+    background: var(--accent-primary);
+    color: var(--primary-bg);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+}
+
+.array-element.comparing {
+    background: var(--accent-warning);
+    color: var(--primary-bg);
+    animation: pulse 1s infinite;
+}
+
+.array-element.swapping {
+    background: var(--accent-error);
+    color: var(--primary-bg);
+    animation: scaleIn 0.3s ease;
+}
+
+.array-element.sorted {
+    background: var(--accent-secondary);
+    color: var(--primary-bg);
+}
+
+.array-element.visited {
+    background: var(--accent-tertiary);
+    color: var(--primary-bg);
+}
+
+/* Tree Node Animation */
+.tree-node {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.tree-node.current {
+    background: var(--accent-primary);
+    color: var(--primary-bg);
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+}
+
+.tree-node.visited {
+    background: var(--accent-secondary);
+    color: var(--primary-bg);
+}
+
+.tree-edge {
+    position: absolute;
+    height: 2px;
+    background: var(--border-color);
+    transform-origin: left center;
+    transition: all 0.3s ease;
+}
+
+.tree-edge.active {
+    background: var(--accent-primary);
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.6);
+}
+
+/* Stack Animation */
+.stack-container {
+    position: relative;
+    width: 100px;
+    height: 300px;
+    border: 2px solid var(--border-color);
+    border-top: none;
+    margin: 0 auto;
+}
+
+.stack-element {
+    position: absolute;
+    width: 96px;
+    height: 40px;
+    background: var(--card-bg);
+    border: 2px solid var(--accent-primary);
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.5s ease;
+}
+
+.stack-element.pushing {
+    animation: slideInDown 0.5s ease;
+}
+
+.stack-element.popping {
+    animation: slideInUp 0.5s ease reverse;
+}
+
+/* Queue Animation */
+.queue-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    min-height: 80px;
+}
+
+.queue-element {
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 2px solid var(--accent-primary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.5s ease;
+}
+
+.queue-element.enqueuing {
+    animation: slideInRight 0.5s ease;
+}
+
+.queue-element.dequeuing {
+    animation: slideInLeft 0.5s ease reverse;
+}
+
+/* Graph Node Animation */
+.graph-node {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: var(--card-bg);
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.graph-node.current {
+    background: var(--accent-primary);
+    color: var(--primary-bg);
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+}
+
+.graph-node.visited {
+    background: var(--accent-secondary);
+    color: var(--primary-bg);
+}
+
+.graph-node.path {
+    background: var(--accent-warning);
+    color: var(--primary-bg);
+    animation: pulse 1s infinite;
+}
+
+.graph-edge {
+    position: absolute;
+    height: 3px;
+    background: var(--border-color);
+    transform-origin: left center;
+    transition: all 0.3s ease;
+}
+
+.graph-edge.active {
+    background: var(--accent-primary);
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.6);
+    height: 4px;
+}
+
+.graph-edge.path {
+    background: var(--accent-warning);
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.6);
+    height: 4px;
+}
+
+/* Code Highlighting Animation */
+.code-line {
+    transition: all 0.3s ease;
+    padding: 2px 0;
+    border-radius: 2px;
+}
+
+.code-line.current {
+    background: rgba(0, 255, 136, 0.2);
+    border-left: 3px solid var(--accent-primary);
+    padding-left: 10px;
+    transform: translateX(5px);
+}
+
+.code-line.executed {
+    background: rgba(0, 136, 255, 0.1);
+    border-left: 2px solid var(--accent-secondary);
+    padding-left: 8px;
+}
+
+/* Variable Change Animation */
+.variable-change {
+    animation: borderGlow 0.8s ease-in-out;
+}
+
+.variable-highlight {
+    background: rgba(255, 170, 0, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Recursive Call Animation */
+.recursive-call {
+    position: relative;
+    padding: 10px;
+    margin: 5px 0;
+    background: var(--card-bg);
+    border: 1px solid var(--accent-tertiary);
+    border-radius: var(--radius-md);
+    animation: slideInRight 0.3s ease;
+}
+
+.recursive-call::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 8px solid var(--accent-tertiary);
+}
+
+.recursive-call.returning {
+    animation: slideInLeft 0.3s ease reverse;
+    border-color: var(--accent-secondary);
+}
+
+/* Sorting Animation */
+.sorting-bar {
+    display: inline-block;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    margin: 0 1px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sorting-bar.comparing {
+    background: var(--accent-warning);
+    transform: translateY(-5px);
+}
+
+.sorting-bar.swapping {
+    background: var(--accent-error);
+    animation: scaleIn 0.3s ease;
+}
+
+.sorting-bar.pivot {
+    background: var(--accent-tertiary);
+    box-shadow: 0 0 10px rgba(255, 0, 136, 0.6);
+}
+
+.sorting-bar.sorted {
+    background: var(--accent-primary);
+    animation: neonGlow 1s ease-in-out;
+}
+
+/* Search Animation */
+.search-highlight {
+    background: rgba(255, 170, 0, 0.4);
+    padding: 1px 3px;
+    border-radius: 3px;
+    animation: borderGlow 1s ease-in-out infinite;
+}
+
+.search-found {
+    background: rgba(0, 255, 136, 0.4);
+    padding: 1px 3px;
+    border-radius: 3px;
+    animation: pulse 1s ease-in-out 3;
+}
+
+/* Step Counter Animation */
+.step-counter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--accent-primary);
+    border-radius: var(--radius-md);
+    padding: 5px 10px;
+    font-family: var(--font-code);
+    color: var(--accent-primary);
+    animation: fadeIn 0.3s ease;
+}
+
+.step-counter.updating {
+    animation: pulse 0.5s ease-in-out;
+}
+
+/* Complexity Display Animation */
+.complexity-display {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    font-family: var(--font-code);
+    animation: slideInUp 0.5s ease;
+}
+
+.complexity-time {
+    color: var(--accent-secondary);
+    margin-bottom: 5px;
+}
+
+.complexity-space {
+    color: var(--accent-tertiary);
+}
+
+/* Loading Animation for Canvas */
+.canvas-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.canvas-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.canvas-loading .loading-text {
+    color: var(--text-secondary);
+    font-family: var(--font-code);
+}
+
+/* Transition Effects */
+.page-transition-enter {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.page-transition-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-transition-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Stagger Animation */
+.stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+.stagger-item:nth-child(7) { animation-delay: 0.7s; }
+.stagger-item:nth-child(8) { animation-delay: 0.8s; }
+
+/* Performance Optimizations */
+.gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+.no-animation {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Hover Animations */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hover-glow {
+    transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    border-color: var(--accent-primary);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive Animation Adjustments */
+@media (max-width: 768px) {
+    .array-element {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .tree-node {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+    
+    .graph-node {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+    
+    .stack-container {
+        width: 80px;
+        height: 250px;
+    }
+    
+    .stack-element {
+        width: 76px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .queue-element {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .array-element,
+    .tree-node,
+    .graph-node,
+    .stack-element,
+    .queue-element,
+    .sorting-bar,
+    .recursive-call {
+        transition: none;
+        animation: none;
+    }
+    
+    .pulse,
+    .neon-glow,
+    .border-glow {
+        animation: none;
+    }
+}
+
+/* Dark Theme Specific Animations */
+@media (prefers-color-scheme: dark) {
+    .array-element.current {
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+    }
+    
+    .tree-node.current {
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+    }
+    
+    .graph-node.current {
+        box-shadow: 0 0 20px rgba(0, 255, 136, 1);
+    }
+}

@@ -1,0 +1,697 @@
+[
+  {
+    "problemId": 1,
+    "solutions": {
+      "cpp": {
+        "code": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        unordered_map<int, int> map;\n        \n        for (int i = 0; i < nums.size(); i++) {\n            int complement = target - nums[i];\n            \n            if (map.find(complement) != map.end()) {\n                return {map[complement], i};\n            }\n            \n            map[nums[i]] = i;\n        }\n        \n        return {}; // No solution found\n    }\n};",
+        "explanation": [
+          "Create a hash map to store numbers and their indices",
+          "Iterate through the array once",
+          "For each number, calculate its complement (target - current number)",
+          "Check if the complement exists in the hash map",
+          "If found, return the indices of both numbers",
+          "If not found, add the current number and its index to the hash map",
+          "Continue until a pair is found"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "We traverse the array once, and hash map operations take O(1) time",
+        "spaceExplanation": "Hash map can store up to n elements in worst case",
+        "animationData": {
+          "initialData": [2, 7, 11, 15],
+          "target": 9,
+          "initialVariables": {
+            "i": 0,
+            "complement": 0,
+            "target": 9
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "current",
+              "description": "Start with first element: nums[0] = 2",
+              "variables": { "i": 0, "complement": 7 }
+            },
+            {
+              "type": "codeHighlight",
+              "lineNumber": 7,
+              "description": "Calculate complement: 9 - 2 = 7"
+            },
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "visited",
+              "description": "Add 2 to hash map with index 0"
+            },
+            {
+              "type": "highlight",
+              "target": "element-1",
+              "style": "current",
+              "description": "Move to next element: nums[1] = 7",
+              "variables": { "i": 1, "complement": 2 }
+            },
+            {
+              "type": "codeHighlight",
+              "lineNumber": 9,
+              "description": "Check if complement 2 exists in hash map"
+            },
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "comparing",
+              "description": "Found complement! Return indices [0, 1]"
+            },
+            {
+              "type": "highlight",
+              "target": "element-1",
+              "style": "comparing",
+              "description": "Solution found: indices 0 and 1"
+            }
+          ]
+        }
+      },
+      "java": {
+        "code": "import java.util.HashMap;\nimport java.util.Map;\n\nclass Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        \n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            \n            if (map.containsKey(complement)) {\n                return new int[]{map.get(complement), i};\n            }\n            \n            map.put(nums[i], i);\n        }\n        \n        return new int[]{}; // No solution found\n    }\n}",
+        "explanation": [
+          "Create a HashMap to store numbers and their indices",
+          "Iterate through the array once",
+          "For each number, calculate its complement (target - current number)",
+          "Check if the complement exists in the HashMap",
+          "If found, return the indices of both numbers",
+          "If not found, add the current number and its index to the HashMap",
+          "Continue until a pair is found"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "We traverse the array once, and HashMap operations take O(1) time",
+        "spaceExplanation": "HashMap can store up to n elements in worst case",
+        "animationData": {
+          "initialData": [2, 7, 11, 15],
+          "target": 9,
+          "initialVariables": {
+            "i": 0,
+            "complement": 0,
+            "target": 9
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "current",
+              "description": "Start with first element: nums[0] = 2",
+              "variables": { "i": 0, "complement": 7 }
+            },
+            {
+              "type": "codeHighlight",
+              "lineNumber": 8,
+              "description": "Calculate complement: 9 - 2 = 7"
+            },
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "visited",
+              "description": "Add 2 to HashMap with index 0"
+            },
+            {
+              "type": "highlight",
+              "target": "element-1",
+              "style": "current",
+              "description": "Move to next element: nums[1] = 7",
+              "variables": { "i": 1, "complement": 2 }
+            },
+            {
+              "type": "codeHighlight",
+              "lineNumber": 10,
+              "description": "Check if complement 2 exists in HashMap"
+            },
+            {
+              "type": "highlight",
+              "target": "element-0",
+              "style": "comparing",
+              "description": "Found complement! Return indices [0, 1]"
+            },
+            {
+              "type": "highlight",
+              "target": "element-1",
+              "style": "comparing",
+              "description": "Solution found: indices 0 and 1"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "problemId": 2,
+    "solutions": {
+      "cpp": {
+        "code": "struct ListNode {\n    int val;\n    ListNode *next;\n    ListNode() : val(0), next(nullptr) {}\n    ListNode(int x) : val(x), next(nullptr) {}\n    ListNode(int x, ListNode *next) : val(x), next(next) {}\n};\n\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* prev = nullptr;\n        ListNode* current = head;\n        \n        while (current != nullptr) {\n            ListNode* nextTemp = current->next;\n            current->next = prev;\n            prev = current;\n            current = nextTemp;\n        }\n        \n        return prev;\n    }\n};",
+        "explanation": [
+          "Initialize two pointers: prev (null) and current (head)",
+          "While current is not null, perform the reversal",
+          "Store the next node in a temporary variable",
+          "Reverse the current node's pointer to point to prev",
+          "Move prev to current position",
+          "Move current to the next node (stored in temp)",
+          "Continue until current becomes null",
+          "Return prev as the new head"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)",
+        "timeExplanation": "We visit each node exactly once",
+        "spaceExplanation": "Only using a constant amount of extra space",
+        "animationData": {
+          "initialData": [1, 2, 3, 4, 5],
+          "initialVariables": {
+            "prev": "null",
+            "current": "head",
+            "nextTemp": "null"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "node-0",
+              "style": "current",
+              "description": "Start with current pointing to head (1), prev is null",
+              "variables": { "prev": "null", "current": "1", "nextTemp": "null" }
+            },
+            {
+              "type": "highlight",
+              "target": "node-1",
+              "style": "comparing",
+              "description": "Store next node (2) in nextTemp",
+              "variables": { "prev": "null", "current": "1", "nextTemp": "2" }
+            },
+            {
+              "type": "traverse",
+              "target": "node-0",
+              "description": "Reverse pointer: 1 -> null"
+            },
+            {
+              "type": "highlight",
+              "target": "node-0",
+              "style": "visited",
+              "description": "Move prev to current (1), current to nextTemp (2)",
+              "variables": { "prev": "1", "current": "2", "nextTemp": "null" }
+            },
+            {
+              "type": "highlight",
+              "target": "node-1",
+              "style": "current",
+              "description": "Continue with current = 2",
+              "variables": { "prev": "1", "current": "2", "nextTemp": "3" }
+            },
+            {
+              "type": "traverse",
+              "target": "node-1",
+              "description": "Reverse pointer: 2 -> 1"
+            },
+            {
+              "type": "highlight",
+              "target": "node-2",
+              "style": "current",
+              "description": "Continue reversing until end of list",
+              "variables": { "prev": "2", "current": "3", "nextTemp": "4" }
+            }
+          ]
+        }
+      },
+      "java": {
+        "code": "class ListNode {\n    int val;\n    ListNode next;\n    ListNode() {}\n    ListNode(int val) { this.val = val; }\n    ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n}\n\nclass Solution {\n    public ListNode reverseList(ListNode head) {\n        ListNode prev = null;\n        ListNode current = head;\n        \n        while (current != null) {\n            ListNode nextTemp = current.next;\n            current.next = prev;\n            prev = current;\n            current = nextTemp;\n        }\n        \n        return prev;\n    }\n}",
+        "explanation": [
+          "Initialize two pointers: prev (null) and current (head)",
+          "While current is not null, perform the reversal",
+          "Store the next node in a temporary variable",
+          "Reverse the current node's pointer to point to prev",
+          "Move prev to current position",
+          "Move current to the next node (stored in temp)",
+          "Continue until current becomes null",
+          "Return prev as the new head"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(1)",
+        "timeExplanation": "We visit each node exactly once",
+        "spaceExplanation": "Only using a constant amount of extra space",
+        "animationData": {
+          "initialData": [1, 2, 3, 4, 5],
+          "initialVariables": {
+            "prev": "null",
+            "current": "head",
+            "nextTemp": "null"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "node-0",
+              "style": "current",
+              "description": "Start with current pointing to head (1), prev is null",
+              "variables": { "prev": "null", "current": "1", "nextTemp": "null" }
+            },
+            {
+              "type": "highlight",
+              "target": "node-1",
+              "style": "comparing",
+              "description": "Store next node (2) in nextTemp",
+              "variables": { "prev": "null", "current": "1", "nextTemp": "2" }
+            },
+            {
+              "type": "traverse",
+              "target": "node-0",
+              "description": "Reverse pointer: 1 -> null"
+            },
+            {
+              "type": "highlight",
+              "target": "node-0",
+              "style": "visited",
+              "description": "Move prev to current (1), current to nextTemp (2)",
+              "variables": { "prev": "1", "current": "2", "nextTemp": "null" }
+            },
+            {
+              "type": "highlight",
+              "target": "node-1",
+              "style": "current",
+              "description": "Continue with current = 2",
+              "variables": { "prev": "1", "current": "2", "nextTemp": "3" }
+            },
+            {
+              "type": "traverse",
+              "target": "node-1",
+              "description": "Reverse pointer: 2 -> 1"
+            },
+            {
+              "type": "highlight",
+              "target": "node-2",
+              "style": "current",
+              "description": "Continue reversing until end of list",
+              "variables": { "prev": "2", "current": "3", "nextTemp": "4" }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "problemId": 3,
+    "solutions": {
+      "cpp": {
+        "code": "#include <stack>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValid(string s) {\n        stack<char> st;\n        \n        for (char c : s) {\n            if (c == '(' || c == '[' || c == '{') {\n                st.push(c);\n            } else {\n                if (st.empty()) return false;\n                \n                char top = st.top();\n                st.pop();\n                \n                if ((c == ')' && top != '(') ||\n                    (c == ']' && top != '[') ||\n                    (c == '}' && top != '{')) {\n                    return false;\n                }\n            }\n        }\n        \n        return st.empty();\n    }\n};",
+        "explanation": [
+          "Use a stack to keep track of opening brackets",
+          "Iterate through each character in the string",
+          "If it's an opening bracket, push it onto the stack",
+          "If it's a closing bracket, check if stack is empty (invalid)",
+          "Pop the top element and check if it matches the closing bracket",
+          "If brackets don't match, return false",
+          "After processing all characters, stack should be empty for valid string"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "We process each character once",
+        "spaceExplanation": "Stack can contain up to n/2 characters in worst case",
+        "animationData": {
+          "initialData": "()[]{}",
+          "initialVariables": {
+            "currentChar": "",
+            "stackTop": "empty"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "char-0",
+              "style": "current",
+              "description": "Process '(' - opening bracket, push to stack",
+              "variables": { "currentChar": "(", "stackTop": "(" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-1",
+              "style": "current",
+              "description": "Process ')' - closing bracket, check match with '('",
+              "variables": { "currentChar": ")", "stackTop": "empty" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-2",
+              "style": "current",
+              "description": "Process '[' - opening bracket, push to stack",
+              "variables": { "currentChar": "[", "stackTop": "[" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-3",
+              "style": "current",
+              "description": "Process ']' - closing bracket, matches with '['",
+              "variables": { "currentChar": "]", "stackTop": "empty" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-4",
+              "style": "current",
+              "description": "Process '{' - opening bracket, push to stack",
+              "variables": { "currentChar": "{", "stackTop": "{" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-5",
+              "style": "current",
+              "description": "Process '}' - closing bracket, matches with '{'",
+              "variables": { "currentChar": "}", "stackTop": "empty" }
+            }
+          ]
+        }
+      },
+      "java": {
+        "code": "import java.util.Stack;\n\nclass Solution {\n    public boolean isValid(String s) {\n        Stack<Character> stack = new Stack<>();\n        \n        for (char c : s.toCharArray()) {\n            if (c == '(' || c == '[' || c == '{') {\n                stack.push(c);\n            } else {\n                if (stack.isEmpty()) return false;\n                \n                char top = stack.pop();\n                \n                if ((c == ')' && top != '(') ||\n                    (c == ']' && top != '[') ||\n                    (c == '}' && top != '{')) {\n                    return false;\n                }\n            }\n        }\n        \n        return stack.isEmpty();\n    }\n}",
+        "explanation": [
+          "Use a Stack to keep track of opening brackets",
+          "Iterate through each character in the string",
+          "If it's an opening bracket, push it onto the stack",
+          "If it's a closing bracket, check if stack is empty (invalid)",
+          "Pop the top element and check if it matches the closing bracket",
+          "If brackets don't match, return false",
+          "After processing all characters, stack should be empty for valid string"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "We process each character once",
+        "spaceExplanation": "Stack can contain up to n/2 characters in worst case",
+        "animationData": {
+          "initialData": "()[]{}",
+          "initialVariables": {
+            "currentChar": "",
+            "stackTop": "empty"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "char-0",
+              "style": "current",
+              "description": "Process '(' - opening bracket, push to stack",
+              "variables": { "currentChar": "(", "stackTop": "(" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-1",
+              "style": "current",
+              "description": "Process ')' - closing bracket, check match with '('",
+              "variables": { "currentChar": ")", "stackTop": "empty" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-2",
+              "style": "current",
+              "description": "Process '[' - opening bracket, push to stack",
+              "variables": { "currentChar": "[", "stackTop": "[" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-3",
+              "style": "current",
+              "description": "Process ']' - closing bracket, matches with '['",
+              "variables": { "currentChar": "]", "stackTop": "empty" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-4",
+              "style": "current",
+              "description": "Process '{' - opening bracket, push to stack",
+              "variables": { "currentChar": "{", "stackTop": "{" }
+            },
+            {
+              "type": "highlight",
+              "target": "char-5",
+              "style": "current",
+              "description": "Process '}' - closing bracket, matches with '{'",
+              "variables": { "currentChar": "}", "stackTop": "empty" }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "problemId": 4,
+    "solutions": {
+      "cpp": {
+        "code": "#include <stack>\nusing namespace std;\n\nclass MyQueue {\nprivate:\n    stack<int> input;\n    stack<int> output;\n    \n    void transfer() {\n        while (!input.empty()) {\n            output.push(input.top());\n            input.pop();\n        }\n    }\n    \npublic:\n    MyQueue() {}\n    \n    void push(int x) {\n        input.push(x);\n    }\n    \n    int pop() {\n        peek();\n        int result = output.top();\n        output.pop();\n        return result;\n    }\n    \n    int peek() {\n        if (output.empty()) {\n            transfer();\n        }\n        return output.top();\n    }\n    \n    bool empty() {\n        return input.empty() && output.empty();\n    }\n};",
+        "explanation": [
+          "Use two stacks: input for enqueue operations, output for dequeue operations",
+          "Push operation: Add element to input stack",
+          "Pop/Peek operations: If output stack is empty, transfer all elements from input to output",
+          "Transfer reverses the order, making the oldest element accessible at top of output stack",
+          "Pop from output stack to get FIFO behavior",
+          "Empty check: Both stacks must be empty"
+        ],
+        "timeComplexity": "O(1) amortized",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "Each element is moved at most twice (input to output), amortized O(1)",
+        "spaceExplanation": "Two stacks can hold up to n elements total",
+        "animationData": {
+          "initialData": [],
+          "initialVariables": {
+            "inputStack": "[]",
+            "outputStack": "[]",
+            "operation": ""
+          },
+          "steps": [
+            {
+              "type": "insert",
+              "target": "input-stack",
+              "value": 1,
+              "description": "Push 1 to input stack",
+              "variables": { "inputStack": "[1]", "outputStack": "[]", "operation": "push(1)" }
+            },
+            {
+              "type": "insert",
+              "target": "input-stack",
+              "value": 2,
+              "description": "Push 2 to input stack",
+              "variables": { "inputStack": "[1,2]", "outputStack": "[]", "operation": "push(2)" }
+            },
+            {
+              "type": "transfer",
+              "target": "both-stacks",
+              "description": "Transfer elements from input to output for peek/pop",
+              "variables": { "inputStack": "[]", "outputStack": "[2,1]", "operation": "transfer()" }
+            },
+            {
+              "type": "highlight",
+              "target": "output-stack-top",
+              "style": "current",
+              "description": "Peek returns 1 (top of output stack)",
+              "variables": { "inputStack": "[]", "outputStack": "[2,1]", "operation": "peek() = 1" }
+            }
+          ]
+        }
+      },
+      "java": {
+        "code": "import java.util.Stack;\n\nclass MyQueue {\n    private Stack<Integer> input;\n    private Stack<Integer> output;\n    \n    public MyQueue() {\n        input = new Stack<>();\n        output = new Stack<>();\n    }\n    \n    public void push(int x) {\n        input.push(x);\n    }\n    \n    public int pop() {\n        peek();\n        return output.pop();\n    }\n    \n    public int peek() {\n        if (output.empty()) {\n            while (!input.empty()) {\n                output.push(input.pop());\n            }\n        }\n        return output.peek();\n    }\n    \n    public boolean empty() {\n        return input.empty() && output.empty();\n    }\n}",
+        "explanation": [
+          "Use two stacks: input for enqueue operations, output for dequeue operations",
+          "Push operation: Add element to input stack",
+          "Pop/Peek operations: If output stack is empty, transfer all elements from input to output",
+          "Transfer reverses the order, making the oldest element accessible at top of output stack",
+          "Pop from output stack to get FIFO behavior",
+          "Empty check: Both stacks must be empty"
+        ],
+        "timeComplexity": "O(1) amortized",
+        "spaceComplexity": "O(n)",
+        "timeExplanation": "Each element is moved at most twice (input to output), amortized O(1)",
+        "spaceExplanation": "Two stacks can hold up to n elements total",
+        "animationData": {
+          "initialData": [],
+          "initialVariables": {
+            "inputStack": "[]",
+            "outputStack": "[]",
+            "operation": ""
+          },
+          "steps": [
+            {
+              "type": "insert",
+              "target": "input-stack",
+              "value": 1,
+              "description": "Push 1 to input stack",
+              "variables": { "inputStack": "[1]", "outputStack": "[]", "operation": "push(1)" }
+            },
+            {
+              "type": "insert",
+              "target": "input-stack",
+              "value": 2,
+              "description": "Push 2 to input stack",
+              "variables": { "inputStack": "[1,2]", "outputStack": "[]", "operation": "push(2)" }
+            },
+            {
+              "type": "transfer",
+              "target": "both-stacks",
+              "description": "Transfer elements from input to output for peek/pop",
+              "variables": { "inputStack": "[]", "outputStack": "[2,1]", "operation": "transfer()" }
+            },
+            {
+              "type": "highlight",
+              "target": "output-stack-top",
+              "style": "current",
+              "description": "Peek returns 1 (top of output stack)",
+              "variables": { "inputStack": "[]", "outputStack": "[2,1]", "operation": "peek() = 1" }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "problemId": 5,
+    "solutions": {
+      "cpp": {
+        "code": "#include <vector>\nusing namespace std;\n\nstruct TreeNode {\n    int val;\n    TreeNode *left;\n    TreeNode *right;\n    TreeNode() : val(0), left(nullptr), right(nullptr) {}\n    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n};\n\nclass Solution {\npublic:\n    vector<int> inorderTraversal(TreeNode* root) {\n        vector<int> result;\n        inorderHelper(root, result);\n        return result;\n    }\n    \nprivate:\n    void inorderHelper(TreeNode* node, vector<int>& result) {\n        if (node == nullptr) {\n            return;\n        }\n        \n        inorderHelper(node->left, result);\n        result.push_back(node->val);\n        inorderHelper(node->right, result);\n    }\n};",
+        "explanation": [
+          "Inorder traversal visits nodes in: Left -> Root -> Right order",
+          "Use recursive approach with helper function",
+          "Base case: if node is null, return",
+          "Recursively traverse left subtree",
+          "Process current node (add to result)",
+          "Recursively traverse right subtree",
+          "This gives sorted order for Binary Search Trees"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(h)",
+        "timeExplanation": "We visit each node exactly once",
+        "spaceExplanation": "Recursion stack depth equals tree height h",
+        "animationData": {
+          "initialData": {
+            "value": 1,
+            "left": null,
+            "right": {
+              "value": 2,
+              "left": { "value": 3, "left": null, "right": null },
+              "right": null
+            }
+          },
+          "initialVariables": {
+            "currentNode": "null",
+            "result": "[]"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "tree-node-1",
+              "style": "current",
+              "description": "Start at root (1), go left first",
+              "variables": { "currentNode": "1", "result": "[]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-1",
+              "style": "visited",
+              "description": "No left child, process root: add 1 to result",
+              "variables": { "currentNode": "1", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-2",
+              "style": "current",
+              "description": "Go to right child (2), then its left child first",
+              "variables": { "currentNode": "2", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-3",
+              "style": "current",
+              "description": "Process left child (3) first",
+              "variables": { "currentNode": "3", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-3",
+              "style": "visited",
+              "description": "Add 3 to result",
+              "variables": { "currentNode": "3", "result": "[1,3]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-2",
+              "style": "visited",
+              "description": "Back to node 2, add it to result",
+              "variables": { "currentNode": "2", "result": "[1,3,2]" }
+            }
+          ]
+        }
+      },
+      "java": {
+        "code": "import java.util.*;\n\nclass TreeNode {\n    int val;\n    TreeNode left;\n    TreeNode right;\n    TreeNode() {}\n    TreeNode(int val) { this.val = val; }\n    TreeNode(int val, TreeNode left, TreeNode right) {\n        this.val = val;\n        this.left = left;\n        this.right = right;\n    }\n}\n\nclass Solution {\n    public List<Integer> inorderTraversal(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        inorderHelper(root, result);\n        return result;\n    }\n    \n    private void inorderHelper(TreeNode node, List<Integer> result) {\n        if (node == null) {\n            return;\n        }\n        \n        inorderHelper(node.left, result);\n        result.add(node.val);\n        inorderHelper(node.right, result);\n    }\n}",
+        "explanation": [
+          "Inorder traversal visits nodes in: Left -> Root -> Right order",
+          "Use recursive approach with helper function",
+          "Base case: if node is null, return",
+          "Recursively traverse left subtree",
+          "Process current node (add to result)",
+          "Recursively traverse right subtree",
+          "This gives sorted order for Binary Search Trees"
+        ],
+        "timeComplexity": "O(n)",
+        "spaceComplexity": "O(h)",
+        "timeExplanation": "We visit each node exactly once",
+        "spaceExplanation": "Recursion stack depth equals tree height h",
+        "animationData": {
+          "initialData": {
+            "value": 1,
+            "left": null,
+            "right": {
+              "value": 2,
+              "left": { "value": 3, "left": null, "right": null },
+              "right": null
+            }
+          },
+          "initialVariables": {
+            "currentNode": "null",
+            "result": "[]"
+          },
+          "steps": [
+            {
+              "type": "highlight",
+              "target": "tree-node-1",
+              "style": "current",
+              "description": "Start at root (1), go left first",
+              "variables": { "currentNode": "1", "result": "[]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-1",
+              "style": "visited",
+              "description": "No left child, process root: add 1 to result",
+              "variables": { "currentNode": "1", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-2",
+              "style": "current",
+              "description": "Go to right child (2), then its left child first",
+              "variables": { "currentNode": "2", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-3",
+              "style": "current",
+              "description": "Process left child (3) first",
+              "variables": { "currentNode": "3", "result": "[1]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-3",
+              "style": "visited",
+              "description": "Add 3 to result",
+              "variables": { "currentNode": "3", "result": "[1,3]" }
+            },
+            {
+              "type": "highlight",
+              "target": "tree-node-2",
+              "style": "visited",
+              "description": "Back to node 2, add it to result",
+              "variables": { "currentNode": "2", "result": "[1,3,2]" }
+            }
+          ]
+        }
+      }
+    }
+  }
+]
