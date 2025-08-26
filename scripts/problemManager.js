@@ -362,6 +362,13 @@ class ProblemManager {
         return problemSolutions.solutions[language];
     }
 
+    getProblemSolutions(problemId) {
+        const problemSolutions = this.solutions.get(problemId);
+        if (!problemSolutions) return null;
+
+        return problemSolutions.solutions;
+    }
+
     getDataStructureInfo(category) {
         return this.dataStructureInfo.get(category);
     }

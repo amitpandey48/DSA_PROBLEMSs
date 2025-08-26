@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Solver Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .debug-section {
+            background: #2a2a2a;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .lang-btn {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .lang-btn.active {
+            background: #00ff88;
+            color: black;
+        }
+        .code-block {
+            background: #151515;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Roboto Mono', monospace;
+            white-space: pre-wrap;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .debug-info {
+            background: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        button {
+            padding: 10px 20px;
+            background: #00ff88;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #00cc6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>DSA Solver Debug Page</h1>
+    
+    <div class="debug-section">
+        <h2>Language Switching Test</h2>
+        <p>This page tests the language switching functionality to ensure both C++ and Java code are displayed correctly.</p>
+        
+        <div class="language-toggle">
+            <button class="lang-btn active" data-lang="cpp">C++</button>
+            <button class="lang-btn" data-lang="java">Java</button>
+        </div>
+        
+        <div class="code-block" id="codeDisplay">
+            // Code will be displayed here
+        </div>
+        
+        <div class="debug-info" id="debugInfo">
+            Debug information will appear here
+        </div>
+        
+        <button onclick="testLanguageSwitch()">Test Language Switch</button>
+        <button onclick="showDebugInfo()">Show Debug Info</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Solutions Data Test</h2>
+        <p>Testing if solutions data is loaded correctly:</p>
+        <div id="solutionsTest"></div>
+        <button onclick="testSolutionsData()">Test Solutions Data</button>
+    </div>
+    
+    <script>
+        // Mock solutions data (same as in your solutions.json)
+        const solutions = {
+            cpp: {
+                code: `#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> map;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            
+            if (map.find(complement) != map.end()) {
+                return {map[complement], i};
+            }
+            
+            map[nums[i]] = i;
+        }
+        
+        return {}; // No solution found
+    }
+};`,
+                explanation: [
+                    "Create a hash map to store numbers and their indices",
+                    "Iterate through the array once",
+                    "For each number, calculate its complement (target - current number)",
+                    "Check if the complement exists in the hash map",
+                    "If found, return the indices of both numbers",
+                    "If not found, add the current number and its index to the hash map"
+                ],
+                timeComplexity: "O(n)",
+                spaceComplexity: "O(n)"
+            },
+            java: {
+                code: `import java.util.HashMap;
+import java.util.Map;
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            
+            map.put(nums[i], i);
+        }
+        
+        return new int[]{}; // No solution found
+    }
+}`,
+                explanation: [
+                    "Create a HashMap to store numbers and their indices",
+                    "Iterate through the array once",
+                    "For each number, calculate its complement (target - current number)",
+                    "Check if the complement exists in the HashMap",
+                    "If found, return the indices of both numbers",
+                    "If not found, add the current number and its index to the HashMap"
+                ],
+                timeComplexity: "O(n)",
+                spaceComplexity: "O(n)"
+            }
+        };
+        
+        let currentLanguage = 'cpp';
+        
+        function updateCode() {
+            const codeDisplay = document.getElementById('codeDisplay');
+            const solution = solutions[currentLanguage];
+            
+            if (solution) {
+                codeDisplay.textContent = solution.code;
+                updateDebugInfo();
+            } else {
+                codeDisplay.textContent = `// No solution available for ${currentLanguage.toUpperCase()}`;
+            }
+        }
+        
+        function updateDebugInfo() {
+            const debugInfo = document.getElementById('debugInfo');
+            const solution = solutions[currentLanguage];
+            
+            debugInfo.innerHTML = `
+                <strong>Current Language:</strong> ${currentLanguage.toUpperCase()}<br>
+                <strong>Solution Available:</strong> ${solution ? 'Yes' : 'No'}<br>
+                <strong>Code Length:</strong> ${solution ? solution.code.length : 0} characters<br>
+                <strong>Explanation Steps:</strong> ${solution ? solution.explanation.length : 0}<br>
+                <strong>Time Complexity:</strong> ${solution ? solution.timeComplexity : 'N/A'}<br>
+                <strong>Space Complexity:</strong> ${solution ? solution.spaceComplexity : 'N/A'}
+            `;
+        }
+        
+        function handleLanguageChange(language) {
+            currentLanguage = language;
+            console.log('Language changed to:', language);
+            
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${language}"]`).classList.add('active');
+            
+            // Update code display
+            updateCode();
+        }
+        
+        function testLanguageSwitch() {
+            console.log('Testing language switch...');
+            console.log('Current language:', currentLanguage);
+            console.log('Available languages:', Object.keys(solutions));
+            console.log('Solutions data:', solutions);
+            
+            // Test switching to Java
+            handleLanguageChange('java');
+            
+            // Test switching back to C++
+            setTimeout(() => {
+                handleLanguageChange('cpp');
+            }, 1000);
+        }
+        
+        function showDebugInfo() {
+            console.log('=== DEBUG INFO ===');
+            console.log('Current language:', currentLanguage);
+            console.log('Available solutions:', Object.keys(solutions));
+            console.log('C++ solution:', solutions.cpp);
+            console.log('Java solution:', solutions.java);
+            console.log('Code display element:', document.getElementById('codeDisplay'));
+            console.log('Language buttons:', document.querySelectorAll('.lang-btn'));
+        }
+        
+        function testSolutionsData() {
+            const solutionsTest = document.getElementById('solutionsTest');
+            
+            solutionsTest.innerHTML = `
+                <h3>Solutions Data Test Results:</h3>
+                <p><strong>Total languages available:</strong> ${Object.keys(solutions).length}</p>
+                <p><strong>Languages:</strong> ${Object.keys(solutions).join(', ')}</p>
+                <p><strong>C++ solution available:</strong> ${solutions.cpp ? 'Yes' : 'No'}</p>
+                <p><strong>Java solution available:</strong> ${solutions.java ? 'Yes' : 'No'}</p>
+                <p><strong>C++ code length:</strong> ${solutions.cpp ? solutions.cpp.code.length : 0} characters</p>
+                <p><strong>Java code length:</strong> ${solutions.java ? solutions.java.code.length : 0} characters</p>
+            `;
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                handleLanguageChange(e.currentTarget.dataset.lang);
+            });
+        });
+        
+        // Initialize
+        updateCode();
+        testSolutionsData();
+        
+        console.log('Debug page loaded successfully');
+        console.log('Available solutions:', solutions);
+    </script>
+</body>
+</html>

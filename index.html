@@ -22,6 +22,12 @@
                 <i class="fas fa-search search-icon"></i>
             </div>
             <div class="header-controls">
+                <button id="submitProblemBtn" class="control-btn" title="Submit Problem">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button id="adminPanelBtn" class="control-btn" title="Admin Panel">
+                    <i class="fas fa-cog"></i>
+                </button>
                 <button id="toggleTheme" class="control-btn" title="Toggle Theme">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -88,8 +94,119 @@
 
         <!-- Main Content -->
         <main class="main-content">
+            <!-- DSA Introduction Section -->
+            <section id="dsaIntro" class="content-section active">
+                <div class="intro-header">
+                    <h1>Data Structures & Algorithms</h1>
+                    <p class="intro-subtitle">Master the fundamentals of computer science with interactive problem-solving</p>
+                </div>
+                
+                <div class="intro-content">
+                    <div class="intro-card">
+                        <div class="card-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3>What are Data Structures?</h3>
+                        <p>Data structures are specialized formats for organizing, processing, retrieving, and storing data. They provide a means to manage large amounts of data efficiently for uses such as large databases and internet indexing services.</p>
+                        <div class="dsa-examples">
+                            <div class="example-item">
+                                <strong>Arrays:</strong> Contiguous memory storage for elements
+                            </div>
+                            <div class="example-item">
+                                <strong>Linked Lists:</strong> Dynamic data structure with nodes
+                            </div>
+                            <div class="example-item">
+                                <strong>Trees:</strong> Hierarchical data organization
+                            </div>
+                            <div class="example-item">
+                                <strong>Graphs:</strong> Network of interconnected nodes
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Asymptotic Notation</h3>
+                        <p>Asymptotic notation is used to describe the performance or complexity of an algorithm. It helps us understand how the algorithm scales with input size.</p>
+                        <div class="complexity-table">
+                            <div class="complexity-row">
+                                <div class="complexity-name">O(1)</div>
+                                <div class="complexity-desc">Constant Time - Best performance</div>
+                            </div>
+                            <div class="complexity-row">
+                                <div class="complexity-name">O(log n)</div>
+                                <div class="complexity-desc">Logarithmic Time - Very good</div>
+                            </div>
+                            <div class="complexity-row">
+                                <div class="complexity-name">O(n)</div>
+                                <div class="complexity-desc">Linear Time - Good</div>
+                            </div>
+                            <div class="complexity-row">
+                                <div class="complexity-name">O(n²)</div>
+                                <div class="complexity-desc">Quadratic Time - Poor</div>
+                            </div>
+                            <div class="complexity-row">
+                                <div class="complexity-name">O(2ⁿ)</div>
+                                <div class="complexity-desc">Exponential Time - Very poor</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-card">
+                        <div class="card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Time Complexity</h3>
+                        <p>Time complexity measures the amount of time an algorithm takes to complete as a function of the length of the input. It helps us choose the most efficient algorithm for our needs.</p>
+                        <div class="complexity-examples">
+                            <div class="example-item">
+                                <strong>Searching:</strong> Binary Search (O(log n)) vs Linear Search (O(n))
+                            </div>
+                            <div class="example-item">
+                                <strong>Sorting:</strong> Quick Sort (O(n log n)) vs Bubble Sort (O(n²))
+                            </div>
+                            <div class="example-item">
+                                <strong>Access:</strong> Array access (O(1)) vs Linked List traversal (O(n))
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-card">
+                        <div class="card-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Space Complexity</h3>
+                        <p>Space complexity measures the amount of memory an algorithm uses relative to the input size. It's crucial for memory-constrained environments.</p>
+                        <div class="space-examples">
+                            <div class="example-item">
+                                <strong>In-place algorithms:</strong> Use O(1) extra space
+                            </div>
+                            <div class="example-item">
+                                <strong>Recursive algorithms:</strong> Use O(n) space due to call stack
+                            </div>
+                            <div class="example-item">
+                                <strong>Dynamic programming:</strong> Often uses O(n) or O(n²) space
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="intro-actions">
+                    <button id="startLearning" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Start Learning
+                    </button>
+                    <button id="viewProblems" class="btn btn-secondary">
+                        <i class="fas fa-list"></i>
+                        View All Problems
+                    </button>
+                </div>
+            </section>
+
             <!-- Problems List View -->
-            <section id="problemsList" class="content-section active">
+            <section id="problemsList" class="content-section">
                 <div class="section-header">
                     <h2 id="sectionTitle">All Problems</h2>
                     <div class="view-controls">
@@ -235,6 +352,134 @@
         </div>
     </div>
 
+    <!-- Submit Problem Modal -->
+    <div id="submitProblemModal" class="modal">
+        <div class="modal-content submit-modal">
+            <div class="modal-header">
+                <h3>Submit Your Problem</h3>
+                <button id="closeSubmitProblem" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="problemSubmissionForm" class="submit-form">
+                <div class="form-group">
+                    <label for="problemTitle">Problem Title *</label>
+                    <input type="text" id="problemTitle" name="title" required placeholder="Enter problem title">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="problemCategory">Category *</label>
+                        <select id="problemCategory" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="array">Arrays</option>
+                            <option value="linkedlist">Linked Lists</option>
+                            <option value="stack">Stacks</option>
+                            <option value="queue">Queues</option>
+                            <option value="tree">Trees</option>
+                            <option value="graph">Graphs</option>
+                            <option value="hashing">Hashing</option>
+                            <option value="dynamic-programming">Dynamic Programming</option>
+                            <option value="greedy">Greedy</option>
+                            <option value="backtracking">Backtracking</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="problemDifficulty">Difficulty *</label>
+                        <select id="problemDifficulty" name="difficulty" required>
+                            <option value="">Select difficulty</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="problemDescription">Problem Description *</label>
+                    <textarea id="problemDescription" name="description" required placeholder="Describe the problem in detail..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="problemConstraints">Constraints</label>
+                    <textarea id="problemConstraints" name="constraints" placeholder="Enter problem constraints (one per line)"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="problemExamples">Examples</label>
+                    <textarea id="problemExamples" name="examples" placeholder="Enter test cases and examples"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="problemTags">Tags</label>
+                    <input type="text" id="problemTags" name="tags" placeholder="Enter tags separated by commas">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userName">Your Name</label>
+                    <input type="text" id="userName" name="userName" placeholder="Enter your name (optional)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="userEmail">Your Email</label>
+                    <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email (optional)">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelSubmit" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Problem</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" class="modal">
+        <div class="modal-content admin-modal">
+            <div class="modal-header">
+                <h3>Admin Panel - Problem Submissions</h3>
+                <button id="closeAdminPanel" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="admin-content">
+                <div class="admin-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalSubmissions">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="pendingSubmissions">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="approvedSubmissions">0</span>
+                        <span class="stat-label">Approved</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="rejectedSubmissions">0</span>
+                        <span class="stat-label">Rejected</span>
+                    </div>
+                </div>
+                
+                <div class="admin-actions">
+                    <button id="exportSubmissions" class="btn btn-secondary">
+                        <i class="fas fa-download"></i> Export All
+                    </button>
+                    <button id="importSubmissions" class="btn btn-secondary">
+                        <i class="fas fa-upload"></i> Import
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+                
+                <div class="submissions-list" id="submissionsList">
+                    <!-- Submissions will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="loading-spinner">
         <div class="spinner"></div>
@@ -245,6 +490,7 @@
     <script src="scripts/syntaxHighlighter.js"></script>
     <script src="scripts/animationEngine.js"></script>
     <script src="scripts/problemManager.js"></script>
+    <script src="scripts/submissionManager.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

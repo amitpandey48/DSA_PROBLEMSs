@@ -8,6 +8,7 @@ class DSAApp {
         this.currentLanguage = 'cpp';
         this.isLoading = false;
         this.solvedProblems = new Set(JSON.parse(localStorage.getItem('solvedProblems') || '[]'));
+        this.currentTheme = localStorage.getItem('theme') || 'dark';
         
         this.initializeApp();
     }
@@ -16,6 +17,9 @@ class DSAApp {
         this.showLoading();
         
         try {
+            // Initialize theme
+            this.applyTheme(this.currentTheme);
+            
             // Load problems data
             await this.problemManager.loadProblems();
             
@@ -66,13 +70,25 @@ class DSAApp {
             this.showProblemsView();
         });
 
+        // Back to intro button
+        const backToIntroBtn = document.getElementById('backToIntro');
+        if (backToIntroBtn) {
+            backToIntroBtn.addEventListener('click', () => {
+                this.showDSAIntro();
+            });
+        }
+
         // Language toggle
         const langBtns = document.querySelectorAll('.lang-btn');
         langBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
+                console.log('Language button clicked:', e.currentTarget.dataset.lang); // Debug log
                 this.handleLanguageChange(e.currentTarget.dataset.lang);
             });
         });
+        
+        // Debug: Log language buttons found
+        console.log('Language buttons found:', langBtns.length);
 
         // Tab navigation
         const tabBtns = document.querySelectorAll('.tab-btn');
@@ -87,6 +103,28 @@ class DSAApp {
         copyBtn.addEventListener('click', () => {
             this.copyCodeToClipboard();
         });
+
+        // Theme toggle
+        const themeToggle = document.getElementById('toggleTheme');
+        themeToggle.addEventListener('click', () => {
+            this.toggleTheme();
+        });
+
+        // DSA Intro buttons
+        const startLearningBtn = document.getElementById('startLearning');
+        const viewProblemsBtn = document.getElementById('viewProblems');
+        
+        if (startLearningBtn) {
+            startLearningBtn.addEventListener('click', () => {
+                this.showProblemsView();
+            });
+        }
+        
+        if (viewProblemsBtn) {
+            viewProblemsBtn.addEventListener('click', () => {
+                this.showProblemsView();
+            });
+        }
 
         // Animation controls
         const playBtn = document.getElementById('playAnimation');
@@ -205,6 +243,7 @@ class DSAApp {
 
     handleLanguageChange(language) {
         this.currentLanguage = language;
+        console.log('Language changed to:', language); // Debug log
 
         // Update active language button
         document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -215,7 +254,13 @@ class DSAApp {
         // Update solution display
         if (this.currentProblem) {
             this.displaySolution();
+            this.displayExplanation(); // Also update explanation tab
         }
+        
+        // Force a small delay to ensure DOM updates
+        setTimeout(() => {
+            console.log('Language change completed for:', language);
+        }, 100);
     }
 
     handleTabChange(tab) {
@@ -372,6 +417,11 @@ class DSAApp {
             // Load solution data
             await this.problemManager.loadSolution(problemId);
             
+            // Debug: Check available solutions
+            const availableSolutions = this.problemManager.getProblemSolutions(problemId);
+            console.log('Available solutions for problem', problemId, ':', availableSolutions);
+            console.log('Current language:', this.currentLanguage);
+            
             // Display problem details
             this.displayProblemInfo();
             this.displaySolution();
@@ -393,12 +443,19 @@ class DSAApp {
     }
 
     showProblemsView() {
+        document.getElementById('dsaIntro').classList.remove('active');
         document.getElementById('problemDetail').classList.remove('active');
         document.getElementById('problemsList').classList.add('active');
         this.currentProblem = null;
         
         // Stop any running animations
         this.animationEngine.stop();
+    }
+
+    showDSAIntro() {
+        document.getElementById('problemsList').classList.remove('active');
+        document.getElementById('problemDetail').classList.remove('active');
+        document.getElementById('dsaIntro').classList.add('active');
     }
 
     displayProblemInfo() {
@@ -435,14 +492,42 @@ class DSAApp {
 
     displaySolution() {
         const solution = this.problemManager.getSolution(this.currentProblem.id, this.currentLanguage);
+        console.log('Current language:', this.currentLanguage); // Debug log
+        console.log('Solution found:', solution); // Debug log
         
         if (solution) {
-            const highlightedCode = this.syntaxHighlighter.highlight(solution.code, this.currentLanguage);
-            document.getElementById('solutionCode').innerHTML = highlightedCode;
+            const codeElement = document.getElementById('solutionCode');
+            
+            // Clear any previous content
+            codeElement.innerHTML = '';
+            
+            // For now, let's display clean code without syntax highlighting to fix the HTML markup issue
+            const preElement = document.createElement('pre');
+            preElement.className = 'code-content';
+            preElement.textContent = solution.code; // Use textContent to avoid HTML parsing
+            
+            codeElement.appendChild(preElement);
+            
+            console.log('Displaying clean code without syntax highlighting');
+            
+            // TODO: Re-enable syntax highlighting once the HTML markup issue is fixed
+            /*
+            try {
+                const highlightedCode = this.syntaxHighlighter.highlight(solution.code, this.currentLanguage);
+                if (highlightedCode && highlightedCode !== solution.code) {
+                    codeElement.innerHTML = highlightedCode;
+                } else {
+                    console.log('Syntax highlighting returned same code, keeping plain text');
+                }
+            } catch (error) {
+                console.error('Syntax highlighting failed, using plain text:', error);
+            }
+            */
         } else {
             document.getElementById('solutionCode').innerHTML = `
                 <div class="no-solution">
                     <p>Solution for ${this.currentLanguage.toUpperCase()} is not available yet.</p>
+                    <p>Available languages: ${Object.keys(this.problemManager.getProblemSolutions(this.currentProblem.id) || {}).join(', ')}</p>
                 </div>
             `;
         }
@@ -816,6 +901,29 @@ class DSAApp {
                 errorDiv.parentNode.removeChild(errorDiv);
             }
         });
+    }
+
+    toggleTheme() {
+        this.currentTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.applyTheme(this.currentTheme);
+        localStorage.setItem('theme', this.currentTheme);
+        
+        // Update theme toggle button icon
+        const themeIcon = document.querySelector('#toggleTheme i');
+        if (themeIcon) {
+            themeIcon.className = this.currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        this.currentTheme = theme;
+        
+        // Update theme toggle button icon
+        const themeIcon = document.querySelector('#toggleTheme i');
+        if (themeIcon) {
+            themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
     }
 }
 
